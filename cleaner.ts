@@ -4,16 +4,16 @@ import dayjs from 'dayjs'
 import { DeleteObjectsCommand } from '@aws-sdk/client-s3'
 import config from 'config'
 
-import sequelize from '../notino_backend/src/db/models'
+import sequelize from './example/src/db/models'
 
 // utils
-import { uglyfyRawSqlQuery } from '../notino_backend/src/utils/helper'
+import { uglyfyRawSqlQuery } from './example/src/utils/helper'
 
 // services
-import { s3Client } from '../notino_backend/src/services/awsS3Service'
+import { s3Client } from './example/src/services/awsS3Service'
 
 // types
-import { IAwsConfig } from '../notino_backend/src/types/config'
+import { IAwsConfig } from './example/src/types/config'
 
 const awsConfig: IAwsConfig = config.get('aws')
 
@@ -196,7 +196,7 @@ const removeFiles = async (filesTableName: string, primaryKeyColumnName: string,
 	}
 }
 
-export default (async () => {
+export default async () => {
 	try {
 		const filesTableName = process.env.S3_CLEANUP_FILES_TABLE_NAME
 		if (!filesTableName) {
@@ -229,7 +229,7 @@ export default (async () => {
 
 		// check if files table has deletedAt column
 		if (!filesTableDescribeData.deletedAt) {
-			throw new Error('Files table does not have deletedAt column!')
+			throw new Error('Files table does not have deletedAt column')
 		}
 
 		// NOTE: mark for deletion files which are not used (they do not have any association)
@@ -246,4 +246,4 @@ export default (async () => {
 	} catch (error) {
 		return Promise.reject(error)
 	}
-})()
+}
