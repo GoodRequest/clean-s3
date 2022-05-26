@@ -26,7 +26,6 @@ Script which deletes unused files. It is intended to be copied into your project
 
 >:warning:
 ><mark>There is no transaction used in script, so if it fails in any step, previously execued steps will remain execued</mark>
->:warning:
 
 ## Required environment variables
 - *S3_CLEANUP_FILES_TABLE_NAME*
