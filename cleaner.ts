@@ -141,7 +141,7 @@ const removeFiles = async (filesTableName: string, primaryKeyColumnName: string,
 				)
 
 				// remove files which are marked for delete at current date (s3)
-				const s3DeleteObjects = map(deleteFiles, (deleteFile) => ({ Key: replace(deleteFile.path, new RegExp(keyColumnBase), '') }))
+				const s3DeleteObjects = map(deleteFiles, (deleteFile) => ({ Key: replace(deleteFile[keyColumnName], new RegExp(keyColumnBase), '') }))
 				const awsRemovedKeys: string[] = []
 
 				const command = new DeleteObjectsCommand({
